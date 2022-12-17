@@ -40,3 +40,4 @@ class PostSerializer(serializers.ModelSerializer):
     model = Post
     fields = ('id', 'user_id', 'title', 'publication_date', 'content', 'approved')
     depth = 1
+    
