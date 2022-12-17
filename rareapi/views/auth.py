@@ -7,7 +7,7 @@ from rest_framework.response import Response
 def check_user(request):
     '''Checks to see if User exists
     Method arguments:
-      request -- The full HTTP request object
+    request -- The full HTTP request object
     '''
     uid = request.data['uid']
 
@@ -39,7 +39,7 @@ def check_user(request):
 def register_user(request):
     '''Handles the creation of a new user for authentication
     Method arguments:
-      request -- The full HTTP request object
+    request -- The full HTTP request object
     '''
     # Now save the user info in the rareapi_user table
     user = User.objects.create(
