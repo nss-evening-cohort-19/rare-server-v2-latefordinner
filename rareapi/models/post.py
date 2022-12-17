@@ -1,9 +1,10 @@
 from django.db import models
-
+from .user import User
+from .category import Category
 class Post(models.Model):
 
-    user = models.ForeignKey("User", on_delete=models.CASCADE)
-    category = models.CharField(max_length=50)
+    use_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     publication_date = models.DateField()
     image_url = models.CharField(max_length=100)
