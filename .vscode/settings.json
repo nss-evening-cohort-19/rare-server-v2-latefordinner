@@ -1,8 +1,8 @@
 {
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "cSpell.words": [
-        "corsheaders",
-        "rareapi"
-    ]
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django",
+        "--django-settings-module=rare.settings",
+    ],
 }
