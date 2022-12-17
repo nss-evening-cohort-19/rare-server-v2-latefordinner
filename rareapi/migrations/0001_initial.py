@@ -12,6 +12,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Post',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('category_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rareapi.category')),
+                ('title', models.CharField(max_length=50)),
+                ('publication_date', models.DateField()),
+                ('image_url', models.CharField(max_length=100)),
+                ('content', models.CharField(max_length=300)),
+                ('approved', models.BooleanField()),
+                ],
+        ),
+        migrations.CreateModel(
             name='User',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
