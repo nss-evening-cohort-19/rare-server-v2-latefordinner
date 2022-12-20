@@ -35,7 +35,7 @@ class PostView(ViewSet):
         post.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)    
       
-class PostSerializer(serializers.ModelSergitializer):
+class PostSerializer(serializers.ModelSerializer):
   class Meta:
     model = Post
     fields = ('id', 'user_id', 'category_id', 'title', 'publication_date', 'content', 'approved')
