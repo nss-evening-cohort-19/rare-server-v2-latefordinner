@@ -38,10 +38,6 @@ class PostView(ViewSet):
 class PostSerializer(serializers.ModelSerializer):
   class Meta:
     model = Post
-<<<<<<< HEAD
-    fields = ('id', 'user_id', 'title', 'publication_date', 'content', 'approved', 'category_id', )
-=======
     fields = ('id', 'user_id', 'category_id', 'title', 'publication_date', 'content', 'approved')
->>>>>>> main
     depth = 1
     
