@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from rareapi.models import Post
+from rareapi.models import Post, User, Category
 
 
 class PostView(ViewSet):
@@ -29,6 +29,22 @@ class PostView(ViewSet):
         posts = Post.objects.all()
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
+      
+    def create(self, request):
+
+        user = User.objects.get(uid=request.data["user"])
+        category = Category.objects.get(pk=request.data["category"])
+
+        post = Post.objects.create(
+            title = request.data["title"],
+            publication_date = request.data["publication_date"],
+            image_url = request.data["image_url"],
+            content = request.data["content"],
+            user = user,
+            category = category
+        )
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
     
     def destroy(self, request, pk):
         post = Post.objects.get(pk=pk)
@@ -38,6 +54,6 @@ class PostView(ViewSet):
 class PostSerializer(serializers.ModelSerializer):
   class Meta:
     model = Post
-    fields = ('id', 'user_id', 'category_id', 'title', 'publication_date', 'content', 'approved')
+    fields = ('id', 'user', 'category', 'title', 'publication_date', 'content', "image_url")
     depth = 1
     
