@@ -7,7 +7,7 @@ from rareapi.models import Post
 from rareapi.models import Category
 
 
-class CategoryViewSet(ViewSet):
+class CategoryView(ViewSet):
     """Categories view set"""
 
     def retrieve(self, request, pk):
@@ -30,11 +30,25 @@ class CategoryViewSet(ViewSet):
         serialized_categories = CategoriesSerializer(categories, many=True)
         return Response(serialized_categories.data, status=status.HTTP_200_OK)
     
+    def create(self, request):
+        """Handle POST operations"""
+        category = Category.objects.create(
+            label=request.data["label"]
+        )
+        serializer = CategoriesSerializer(category)
+        return Response(serializer.data)
+    
+    def update(self, request, pk):
+        """Handle PUT requests for a game"""
+        category = Category.objects.get(pk=pk)
+        category.label = request.data["label"]
+        category.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
     def destroy(self, pk):
         category = Category.objects.get(pk=pk)
         category.delete()
         return Response({}, status=status.HTTP_204_NO_CONTENT) 
-      
 class CategoriesSerializer(serializers.ModelSerializer):
     """serializer for categories"""
     class Meta:
