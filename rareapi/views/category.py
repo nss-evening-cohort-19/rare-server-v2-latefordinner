@@ -11,17 +11,13 @@ class CategoryView(ViewSet):
     """Categories view set"""
 
     def retrieve(self, request, pk):
-        """Handle GET request for single post
-        Returns:
-            Response JSON serielized post instance
-        """
+        """Handle GET request for single category"""
         try:
             category = Category.objects.get(pk=pk)
             serializer = CategoriesSerializer(category, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
-
 
     def list(self, request):
         """GET all categories"""
@@ -31,7 +27,7 @@ class CategoryView(ViewSet):
         return Response(serialized_categories.data, status=status.HTTP_200_OK)
     
     def create(self, request):
-        """Handle POST operations"""
+        """Handle GET operations"""
         category = Category.objects.create(
             label=request.data["label"]
         )
@@ -44,11 +40,11 @@ class CategoryView(ViewSet):
         category.label = request.data["label"]
         category.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-    
-    def destroy(self, pk):
+
+    def destroy(self, request, pk):
         category = Category.objects.get(pk=pk)
         category.delete()
-        return Response({}, status=status.HTTP_204_NO_CONTENT) 
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 class CategoriesSerializer(serializers.ModelSerializer):
     """serializer for categories"""
     class Meta:
