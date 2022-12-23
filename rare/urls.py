@@ -7,8 +7,8 @@ from rareapi.views import PostView, CategoryView, TagView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'posts', PostView, 'posts')
-router.register(r'categories', CategoryView, 'category')
 router.register(r'tags', TagView, 'tag')
+router.register(r'categories', CategoryView, 'category')
 
 urlpatterns = [
     path('register', register_user),
